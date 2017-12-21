@@ -1,45 +1,115 @@
 package com.jession_ding.example.project2048demo;
 
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.jession_ding.example.project2048demo.view.GameView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "MainActivity";
+    private TextView tv_mainactivity_scorepoint;
+    private SharedPreferences sp;
+    private TextView tv_mainactivity_recordpoint;
+    private Button bt_mainactivity_revert;
+    private Button bt_mainactivity_restart;
+    private Button bt_mainactivity_options;
+    private GameView gameView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //先拿SharedPreferences
+        sp = getSharedPreferences("info", MODE_PRIVATE);
+        //打开界面进来
+        int recordScoreSaved = sp.getInt("recordScore", 0); //得到
+
         RelativeLayout rl_mainactivity_center = (RelativeLayout) findViewById(R.id.rl_mainactivity_center);
-        GameView gameView = new GameView(this);
+        tv_mainactivity_scorepoint = (TextView) findViewById(R.id.tv_mainactivity_scorepoint);
+        tv_mainactivity_recordpoint = (TextView) findViewById(R.id.tv_mainactivity_recordpoint);
+        bt_mainactivity_revert = (Button) findViewById(R.id.bt_mainactivity_revert);
+        bt_mainactivity_restart = (Button) findViewById(R.id.bt_mainactivity_restart);
+        bt_mainactivity_options = (Button) findViewById(R.id.bt_mainactivity_options);
+
+        bt_mainactivity_revert.setOnClickListener(this);
+        bt_mainactivity_restart.setOnClickListener(this);
+        bt_mainactivity_options.setOnClickListener(this);
+
+        gameView = new GameView(this);
         rl_mainactivity_center.addView(gameView);
 
-/*        GridLayout gl_mainactivity_container = (GridLayout) findViewById(R.id.gl_mainactivity_container);
-        gl_mainactivity_container.setRowCount(4);
-        gl_mainactivity_container.setColumnCount(4);
+        tv_mainactivity_recordpoint.setText(recordScoreSaved + "");
+    }
 
-        //求出手机屏幕的宽度，除以几个格子，得出每个格子的大小
-        WindowManager windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
-        DisplayMetrics metrics = new DisplayMetrics();
-        windowManager.getDefaultDisplay().getMetrics(metrics);
-        int windowWidth = metrics.widthPixels;
-        Log.i(TAG,windowWidth + "");
+    public void setScore(int scorePoint) {
+        tv_mainactivity_scorepoint.setText(scorePoint + "");
+    }
 
-        for(int i=0;i<4;i++) {
-            for(int j=0;j<4;j++) {
-               *//* //封装的思想：
-                MyTextView textView = new MyTextView(this);
-                textView.setText(1*i+j + "");
-                textView.setTextColor(Color.BLUE);
-                textView.setGravity(Gravity.CENTER);
-                gl_mainactivity_container.addView(textView,windowWidth/4,windowWidth/4);*//*
-                NumberItem numberItem = new NumberItem(this);
-                gl_mainactivity_container.addView(numberItem,windowWidth/4,windowWidth/4);
+    public void updateRecordScore(int recordScore) {
+        int recordScoreSaved = sp.getInt("recordScore", 0); //得到
+        if (recordScore > recordScoreSaved) {
+            SharedPreferences.Editor edit = sp.edit();
+            edit.putInt("recordScore", recordScore); //写入
+            edit.commit();
+            tv_mainactivity_recordpoint.setText(recordScore + "");
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.bt_mainactivity_revert: {
+                revert();
+                break;
             }
-        }*/
+            case R.id.bt_mainactivity_restart: {
+                restart();
+                break;
+            }
+            case R.id.bt_mainactivity_options: {
+                options();
+                break;
+            }
+        }
+    }
+
+    private void revert() {
+        new AlertDialog.Builder(this)
+                .setTitle("重新开始")
+                .setMessage("确定要撤销上一步吗？")
+                .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        gameView.revert();
+                    }
+                })
+                .setNegativeButton("否", null)
+                .show();
+    }
+
+    private void restart() {
+        new AlertDialog.Builder(this)
+                .setTitle("重新开始")
+                .setMessage("确定要重新开始新一局吗？")
+                .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        gameView.restart();
+                    }
+                })
+                .setNegativeButton("否", null)
+                .show();
+    }
+
+    private void options() {
+
     }
 }
