@@ -3,6 +3,7 @@ package com.jession_ding.example.project2048demo.view;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -37,6 +38,7 @@ public class GameView extends GridLayout {
 
     NumberItem[][] itemMatrix;
     int[][] historyMatrix;
+
     public GameView(Context context) {
         super(context);
         //初始化，增加 NumberItem 的帧布局
@@ -54,14 +56,20 @@ public class GameView extends GridLayout {
     private void init(Context context) {
         this.context = context;
         this.activity = (MainActivity) context;
-        setRowCount(rowNumber); //行
-        setColumnCount(columnNumber); //列
+        SharedPreferences sp = context.getSharedPreferences("info", context.MODE_PRIVATE);
+        int lineNumber = sp.getInt("lineNumber", 4);
+        int targetScore = sp.getInt("targetScore", 2048);
+        rowNumber = lineNumber;
+        columnNumber = lineNumber;
+        this.targetScore = targetScore;
         initView(context);
     }
 
     private void initView(Context context) {
         //干掉之前的控件
         removeAllViews();
+        setRowCount(rowNumber); //行
+        setColumnCount(columnNumber); //列
         itemMatrix = new NumberItem[rowNumber][columnNumber];
         historyMatrix = new int[rowNumber][columnNumber];
         blankItemList = new ArrayList<Point>();
@@ -87,8 +95,7 @@ public class GameView extends GridLayout {
                 point.x = i;
                 point.y = j;
                 blankItemList.add(point);
-
-                addView(numberItem, windowWidth / 4, windowWidth / 4);
+                addView(numberItem, windowWidth / rowNumber, windowWidth / rowNumber);
             }
         }
         //随机找个位置，去显示一个不为0的数字
@@ -226,6 +233,34 @@ public class GameView extends GridLayout {
             for (int j = 0; j < columnNumber; j++) {
                 if (itemMatrix[i][j].getNumber() == targetScore) {
                     return 0;   //成功
+                }
+            }
+        }
+        //查看水平方向，有没有相同的数字
+        for (int i = 0; i < rowNumber; i++) {
+            int preNumber = -1;
+            for (int j = 0; j < columnNumber; j++) {
+                int currentNumber = itemMatrix[i][j].getNumber();
+                if (preNumber != -1 && currentNumber == preNumber) {
+                    return over;
+                } else {
+                    preNumber = currentNumber;
+                }
+            }
+        }
+        //查看竖直方向，有没有相同的数字
+        for (int j = 0; j < columnNumber; j++) {
+            int preNumber = -1;
+            for (int i = 0; i < rowNumber; i++) {
+                int currentNumber = itemMatrix[i][j].getNumber();
+                if (preNumber != -1) {
+                    if (currentNumber == preNumber) { //2和2
+                        return over;
+                    }
+                    // 2和4
+                    preNumber = currentNumber;
+                } else {
+                    preNumber = currentNumber;
                 }
             }
         }
@@ -429,19 +464,21 @@ public class GameView extends GridLayout {
             cacuList.clear();
         }
     }
+
     //回到上一次棋盘面的样子
     public void revert() {
-        if(canRevert) {
-            for(int i = 0;i<rowNumber;i++) {
-                for(int j = 0;j<columnNumber;j++) {
+        if (canRevert) {
+            for (int i = 0; i < rowNumber; i++) {
+                for (int j = 0; j < columnNumber; j++) {
                     itemMatrix[i][j].setNumber(historyMatrix[i][j]);
                 }
             }
         }
     }
+
     private void savedToHistory() {
-        for(int i = 0;i<rowNumber;i++) {
-            for(int j = 0;j<columnNumber;j++) {
+        for (int i = 0; i < rowNumber; i++) {
+            for (int j = 0; j < columnNumber; j++) {
                 historyMatrix[i][j] = itemMatrix[i][j].getNumber();
             }
         }

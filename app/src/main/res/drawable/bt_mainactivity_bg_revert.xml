@@ -3,9 +3,9 @@
     <!--button 的点击选择，默认的效果放在后面-->
     <item
         android:state_pressed="true"
-        android:drawable="@drawable/button_mainativity_gb_revert_state2">
+        android:drawable="@drawable/bt_mainactivity_bg_revert_state2">
     </item>
     <item
-        android:drawable="@drawable/button_mainativity_gb_revert_state1">
+        android:drawable="@drawable/bt_mainactivity_bg_revert_state1">
     </item>
 </selector>
