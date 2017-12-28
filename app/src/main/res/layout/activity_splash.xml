@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splashactivity"
+    android:id="@+id/rl_splashactivity_top"
+    tools:context="com.jession_ding.example.project2048demo.SplashActivity">
+</RelativeLayout>

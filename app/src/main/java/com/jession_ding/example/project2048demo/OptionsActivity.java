@@ -1,15 +1,21 @@
 package com.jession_ding.example.project2048demo;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
-public class OptionsActivity extends AppCompatActivity implements View.OnClickListener {
+import ddd.eee.fff.nm.bn.BannerManager;
+import ddd.eee.fff.nm.bn.BannerViewListener;
+
+public class OptionsActivity extends Activity implements View.OnClickListener {
+    private static final String TAG = "OptionsActivity";
     private int lineNumber;
     private int targetScore;
     private SharedPreferences sp;
@@ -29,6 +35,29 @@ public class OptionsActivity extends AppCompatActivity implements View.OnClickLi
         bt_optionsactivity_settargetgoal = (Button) findViewById(R.id.bt_optionsactivity_settargetgoal);
         Button bt_optionsactivity_back = (Button) findViewById(R.id.bt_optionsactivity_back);
         Button bt_optionsactivity_done = (Button) findViewById(R.id.bt_optionsactivity_done);
+        // 获取广告条
+        View bannerView = BannerManager.getInstance(this)
+                .getBannerView(this, new BannerViewListener() {
+                    @Override
+                    public void onRequestSuccess() {
+                        Log.i(TAG,"onRequestSuccess==>>");
+                    }
+
+                    @Override
+                    public void onSwitchBanner() {
+                        Log.i(TAG,"onSwitchBanner==>>");
+                    }
+
+                    @Override
+                    public void onRequestFailed() {
+                        Log.i(TAG,"onRequestFailed==>>");
+                    }
+                });
+
+        // 获取要嵌入广告条的布局
+        LinearLayout bannerLayout = (LinearLayout) findViewById(R.id.ll_banner);
+        // 将广告条加入到布局中
+        bannerLayout.addView(bannerView);
 
         bt_optionsactivity_setlines.setText(lineNumber + "");
         bt_optionsactivity_settargetgoal.setText(targetScore + "");
@@ -162,5 +191,11 @@ public class OptionsActivity extends AppCompatActivity implements View.OnClickLi
             targetWhich = 2;
             return 2;
         }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // 展示广告条窗口的 onDestroy() 回调方法中调用
+        BannerManager.getInstance(this).onDestroy();
     }
 }

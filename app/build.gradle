@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 24
+    buildToolsVersion '24.0.3'
 
     defaultConfig {
         applicationId "com.jession_ding.example.project2048demo"
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 24
         versionCode 1
         versionName "1.0"
     }
@@ -18,9 +18,21 @@ android {
         }
     }
 }
-
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.1.1'
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
 }
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:24.2.0'
+    compile 'com.android.support:support-v4:24.2.0'
+    compile name: 'YoumiSdk_v7.5.0_2017-06-02', ext: 'aar'
+}
+/*dependencies {
+    // name 为上一步导入SDK中导入到工程的aar文件名去除文件后缀的字符串
+    // 比如上一步导入SDK中导入到工程的aar文件名为 YoumiSdk_v7.2.1_2017-05-04.aar，
+    // 那么这里应该这样配置 compile name: 'YoumiSdk_v7.2.1_2017-05-04', ext: 'aar'
+    compile name: 'YoumiSdk_v7.5.0_2017-07-18', ext: 'aar'
+}*/
