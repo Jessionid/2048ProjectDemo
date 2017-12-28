@@ -223,6 +223,7 @@ public class GameView extends GridLayout {
     }
 
     public void restart() {
+        canRevert = false;
         init(activity);
     }
 

@@ -66,12 +66,14 @@
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="130dp"
+        android:layout_marginBottom="4dp">
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="BACK"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:id="@+id/bt_optionsactivity_back"
             android:layout_alignParentLeft="true"
             android:background="@drawable/bt_optionsactivity_bg_gamelines_state1"/>
@@ -79,7 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="DONE"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:id="@+id/bt_optionsactivity_done"
             android:layout_alignParentRight="true"
             android:background="@drawable/bt_optionsactivity_bg_gamelines_state1"/>
@@ -88,11 +90,12 @@
         android:layout_width="match_parent"
         android:layout_height="5px"
         android:background="#FFF"
-        android:layout_marginTop="20px"
-        android:layout_marginBottom="20px"/>
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:text="Contact Me"
         android:textSize="25sp"
         android:gravity="center"/>
@@ -100,6 +103,7 @@
         android:id="@+id/ll_banner"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
     </LinearLayout>

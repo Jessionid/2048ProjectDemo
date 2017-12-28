@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="6dp"
+    android:paddingTop="6dp"
     android:orientation="vertical"
     tools:context="com.jession_ding.example.project2048demo.MainActivity">
 
@@ -13,26 +13,29 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="6dp"
         android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="58dp"
             android:text="2048"
             android:textSize="40sp"
             android:gravity="center"
-            android:padding="10px"
             android:background="@drawable/tv_mainactivity_bg_targetscore"
             android:id="@+id/tv_mainactivity_targetscore"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
             android:layout_weight="1"
             android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Score"
-                android:layout_margin="8px"
                 android:gravity="center"
                 android:background="@drawable/tv_mainactivity_bg_score"
                 android:textSize="25sp"/>
@@ -40,16 +43,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="0"
+                android:layout_marginTop="4dp"
                 android:textSize="15sp"
                 android:gravity="center"
                 android:id="@+id/tv_mainactivity_scorepoint"
-                android:layout_marginLeft="10px"
-                android:layout_marginRight="10px"
                 android:background="@drawable/tv_mainactivity_bg_scorepoint"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
             android:layout_weight="1"
             android:orientation="vertical">
             <TextView
@@ -57,17 +61,15 @@
                 android:layout_height="wrap_content"
                 android:text="Record"
                 android:gravity="center"
-                android:layout_margin="8px"
                 android:background="@drawable/tv_mainactivity_bg_score"
                 android:textSize="25sp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:text="0"
                 android:textSize="15sp"
                 android:gravity="center"
-                android:layout_marginLeft="10px"
-                android:layout_marginRight="10px"
                 android:id="@+id/tv_mainactivity_recordpoint"
                 android:background="@drawable/tv_mainactivity_bg_scorepoint"/>
         </LinearLayout>
@@ -93,6 +95,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="32dp"
         android:orientation="horizontal">
         <Button
             android:layout_width="0dp"
@@ -100,7 +105,7 @@
             android:text="REVERT"
             android:layout_weight="1"
             android:id="@+id/bt_mainactivity_revert"
-            android:layout_margin="6px"
+            android:layout_margin="4dp"
             android:background="@drawable/bt_mainactivity_bg_revert"/>
         <Button
             android:layout_width="0dp"
@@ -108,7 +113,7 @@
             android:text="RESTART"
             android:layout_weight="1"
             android:id="@+id/bt_mainactivity_restart"
-            android:layout_margin="6px"
+            android:layout_margin="4dp"
             android:background="@drawable/bt_mainactivity_bg_revert"/>
         <Button
             android:layout_width="0dp"
@@ -116,7 +121,7 @@
             android:text="OPTIONS"
             android:layout_weight="1"
             android:id="@+id/bt_mainactivity_options"
-            android:layout_margin="6px"
+            android:layout_margin="4dp"
             android:background="@drawable/bt_mainactivity_bg_revert"/>
     </LinearLayout>
 </LinearLayout>
