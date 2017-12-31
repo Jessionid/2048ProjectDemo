@@ -108,12 +108,15 @@ public class GameView extends GridLayout {
         //随机产生一个 i，随机产生一个 j，i 0-3 j 0-3
         //要求是在棋盘上，没有被占用的地方随机找一个位置
         int blankLength = blankItemList.size(); //16
-        int randomLocation = (int) Math.floor(Math.random() * blankLength);    //向下取整
-        //Log.i(TAG, "randomLocation = " + randomLocation);
-        Point point = blankItemList.get(randomLocation);
-        //Log.i(TAG, "point.x = " + point.x + ";" + "point.y = " + point.y);
-        NumberItem numberItem = itemMatrix[point.x][point.y];
-        numberItem.setNumber(2);
+        Log.i(TAG, "blankLength = " + blankLength);
+        if (blankLength != 0) {
+            int randomLocation = (int) Math.floor(Math.random() * blankLength);    //向下取整
+            Log.i(TAG, "randomLocation = " + randomLocation);
+            Point point = blankItemList.get(randomLocation);
+            Log.i(TAG, "point.x = " + point.x + ";" + "point.y = " + point.y);
+            NumberItem numberItem = itemMatrix[point.x][point.y];
+            numberItem.setNumber(2);
+        }
     }
 
     //每次去找一个随机的产生数字的位置之前，需要去更新一下产生的随机数的范围
@@ -179,7 +182,7 @@ public class GameView extends GridLayout {
             activity.updateRecordScore(currentScore);
             new AlertDialog.Builder(context)
                     .setTitle("恭喜您")
-                    .setMessage("您已经成功完成任务，再来一局？")
+                    .setMessage("徒儿，挺厉害的啊，要不再来一局？")
                     .setPositiveButton("是", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -197,7 +200,7 @@ public class GameView extends GridLayout {
             //提示用户 game over
             new AlertDialog.Builder(context)
                     .setTitle("很遗憾")
-                    .setMessage("挑战失败,是否再来一局？")
+                    .setMessage("啊哈哈，徒儿，挑战失败啦,再来一局吗？")
                     .setPositiveButton("是", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -218,6 +221,47 @@ public class GameView extends GridLayout {
             if (canSlide) {
                 addRandomNumber();  //滑动之后，增加一个棋盘
                 canSlide = false;
+                //每次滑动完之后，进行判断
+                int judge = judgeIsOver();
+                if (judge == 0) {
+                    //提示用户已经赢了
+                    activity.updateRecordScore(currentScore);
+                    new AlertDialog.Builder(context)
+                            .setTitle("恭喜您")
+                            .setMessage("徒儿，挺厉害的啊，要不再来一局？")
+                            .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    restart();
+                                }
+                            })
+                            .setNegativeButton("否", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    activity.finish();  //关闭当前activity
+                                }
+                            })
+                            .show();
+                }
+                if (judge == -1) {
+                    //提示用户 game over
+                    new AlertDialog.Builder(context)
+                            .setTitle("很遗憾")
+                            .setMessage("啊哈哈，徒儿，挑战失败啦,再来一局吗？")
+                            .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    restart();
+                                }
+                            })
+                            .setNegativeButton("否", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    activity.finish();  //关闭当前activity
+                                }
+                            })
+                            .show();
+                }
             }
         }
     }

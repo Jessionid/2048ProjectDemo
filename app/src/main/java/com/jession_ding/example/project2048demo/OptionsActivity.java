@@ -112,7 +112,7 @@ public class OptionsActivity extends Activity implements View.OnClickListener {
     private void setTargetGoal() {
         final String[] target = {"1024", "2048", "4096"};
         new AlertDialog.Builder(this)
-                .setTitle("设置游戏的目标分数")
+                .setTitle("徒儿，要设置游戏的目标分数吗？调高啊，调高好玩")
                 .setSingleChoiceItems(target, getTargetGoal(), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -142,7 +142,7 @@ public class OptionsActivity extends Activity implements View.OnClickListener {
     private void setLines() {
         final String[] choices = {"4", "5", "6"};
         new AlertDialog.Builder(this)
-                .setTitle("设置棋盘的行数")
+                .setTitle("徒儿，要设置棋盘的行数吗？调低啊，调低好玩")
                 .setSingleChoiceItems(choices, getLineNumber(), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
