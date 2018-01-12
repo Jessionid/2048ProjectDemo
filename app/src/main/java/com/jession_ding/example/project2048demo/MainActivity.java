@@ -95,7 +95,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private void revert() {
         new AlertDialog.Builder(this)
                 .setTitle("进行撤销")
-                .setMessage("咦，徒儿，确定要撤销上一步吗？")
+                .setMessage("确定要撤销上一步吗？")
                 .setPositiveButton("是", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -109,7 +109,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private void restart() {
         new AlertDialog.Builder(this)
                 .setTitle("重新开始")
-                .setMessage("咦，徒儿，确定要重新开始新一局吗？")
+                .setMessage("确定要重新开始新一局吗？")
                 .setPositiveButton("是", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

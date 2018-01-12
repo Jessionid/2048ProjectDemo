@@ -182,7 +182,7 @@ public class GameView extends GridLayout {
             activity.updateRecordScore(currentScore);
             new AlertDialog.Builder(context)
                     .setTitle("恭喜您")
-                    .setMessage("徒儿，挺厉害的啊，要不再来一局？")
+                    .setMessage("您已经成功完成任务，再来一局吗？")
                     .setPositiveButton("是", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -200,7 +200,7 @@ public class GameView extends GridLayout {
             //提示用户 game over
             new AlertDialog.Builder(context)
                     .setTitle("很遗憾")
-                    .setMessage("啊哈哈，徒儿，挑战失败啦,再来一局吗？")
+                    .setMessage("挑战失败,是否再来一局呢？")
                     .setPositiveButton("是", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

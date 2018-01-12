@@ -22,8 +22,8 @@ public class SplashActivity extends Activity {
         RelativeLayout rl_splashactivity_top = (RelativeLayout) findViewById(R.id.rl_splashactivity_top);
         //初始化有米 SDK
         //appId:88de17839c0ce64f  appSecret:f26a758fbba2bb94
-        //插屏广告
-        AdManager.getInstance(this).init("88de17839c0ce64f", "f26a758fbba2bb94", true);
+        //插屏广告  上传到应用市场，关闭有米广告 SDK 的 Log，把 true 改成 false
+        AdManager.getInstance(this).init("88de17839c0ce64f", "f26a758fbba2bb94", false);
 
         SplashViewSettings splashViewSettings = new SplashViewSettings();
         splashViewSettings.setTargetClass(MainActivity.class);
